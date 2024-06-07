@@ -8,7 +8,6 @@ import os
 
 #%% Helper function
 def census_run_helper(api_key, variables_to_fetch, geographic_level, years_to_fetch, acs_type='acs1', filter=None):
-
     # Initialize an empty DataFrame to store the combined results
     combined_results = pd.DataFrame()
 
@@ -44,9 +43,9 @@ current_year = datetime.now().year
 years_to_fetch = list(range(user_inputs['acs_start_year'], current_year + 1))
 years_to_fetch.remove(2020)
 
-
 # Set census api parameters
 api_key = os.environ.get('census_api_key')
+
 
 
 #%% YoY ACS 1
@@ -87,7 +86,6 @@ state_acs1_df = census_run_helper(api_key, variables_to_fetch, geographic_level,
 geographic_level = "us:1"
 us_acs1_df = census_run_helper(api_key, variables_to_fetch, geographic_level, year)
 
-
 # Get both levels into one df
 acs1_df = pd.concat([state_acs1_df, us_acs1_df], ignore_index=True)
 
@@ -107,7 +105,6 @@ variables_to_fetch = user_inputs['variables_to_fetch_recent'] + user_inputs['var
 acs1_df_yoy = pd.read_parquet('data/acs1/acs1_data_yoy.parquet')
 year = [acs1_df_yoy['Year'].max()]
 
-
 # County Level
 geographic_level = "county:*"
 county_acs5_df = census_run_helper(api_key, variables_to_fetch, geographic_level, year, acs_type='acs5', filter='state:08')
@@ -121,5 +118,4 @@ acs5_df = pd.concat([county_acs5_df, state_acs5_df], ignore_index=True)
 
 # Write data out, for now into the actual repo (not typically how we'd do it, but this is a special case)
 acs5_df.to_parquet(out_file_path, compression='snappy')
-
 

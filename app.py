@@ -51,7 +51,7 @@ with open('assets/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Define the path to Logo image
-image_path = "assets/stock_colorado_logo.png"
+image_path = "assets/stock_colorado_logo.jpg"
 
 # Read the image file as bytes
 with open(image_path, "rb") as img_file:
@@ -66,7 +66,7 @@ st.markdown(
     <div class="title-container">
         <div class="title">Colorado Housing Statistics</div>
         <div class="image-container">
-            <img src="data:image/png;base64,{img_base64}" alt="Image" class="logo-img" style="height: 100%; width: auto;">
+            <img src="data:image/png;base64,{img_base64}" alt="Image" class="logo-img" style="height: 100%; width: auto; border: 1px solid white;">
         </div>
     </div>
     <br><br><br>
