@@ -1,0 +1,133 @@
+/* style.css */
+
+/* Whole block container with all content */
+#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 {
+padding-top: 70px; 
+}
+
+/* Statewide Summary Comparison Selector */
+#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(8){
+    padding-top: 0px; 
+    margin-top: -10px;
+}
+
+/* County Level Summary County Selector */
+#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi5 > div > div > div > div:nth-child(7) {
+    padding-top: 0px; 
+    margin-top: -10px;
+}
+
+/* Title container */
+.title-container {
+    display: flex;
+    align-items: center;
+    background-color: #245d38;
+    padding: 10px;
+    color: white;
+    margin-bottom: -40px;
+    border-radius: 5px;
+}
+
+/* Title */
+.title {
+    flex: 1;
+    font-size: 3rem;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Image container */
+.image-container {
+    flex: 1;
+    text-align: right;
+}
+
+/* Dola Logo Img */
+.dola-logo-img {
+    width: 450px;
+    height: auto;   
+}
+
+/* Year slider */
+.sidebar .sidebar-content {
+    background-color: #f0f2f6;
+}
+
+/* Select Location dropdown */
+.sidebar .sidebar-content .sidebar-section .markdown-section select {
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* Year Range slider */
+.sidebar .sidebar-content .sidebar-section .markdown-section div[data-baseweb="slider-container"] {
+    margin-top: 10px;
+}
+
+/* Hide Full-screen button */
+.st-emotion-cache-6awftf.e1vs0wn31 {
+    display: none !important;
+}
+
+/* Chart line break */
+.chart-line-break {
+    border: 5px solid #FFFFFF; 
+    margin-left: -20px; 
+    margin-right: -20px;
+    margin-top: 0px; 
+    margin-bottom: 0px;
+}
+
+/* Column padding */
+div[data-testid="stApp"]> div {
+    background-color: #FFFFFF
+}
+
+/* Left column padding */
+div[data-testid="column"]:nth-child(3) > div {
+    padding-left: 30px; 
+    padding-right: 0px; 
+/*    background-color: #f0f2f6; */
+}
+
+/* Left column padding */
+div[data-testid="column"]:nth-child(2) > div {
+    padding-left: 0px; 
+    padding-right: 0px; 
+/*    background-color: #f0f2f6; */
+}
+
+/* Right column padding */
+div[data-testid="column"]:nth-child(1) > div {
+    padding-right: 30px; 
+    padding-left: 0px; 
+/*    background-color: #f0f2f6; */
+}
+
+/* H1 border bottom */
+h1 {
+    border-bottom: 1px solid #FFFFFF;
+}
+
+/* H4 background color */
+h4 {
+    /*    background-color: #f0f2f6; */
+        border-bottom: 1px solid #f0f2f6;
+        border-left: 1px solid #f0f2f6;
+        border-radius: 0px 0px 0px 10px; /* top-left, top-right, bottom-right, bottom-left */
+        padding-left: 8px ;
+        padding-bottom: 8px ;
+    }
+
+/* H5 background color */
+h5 {
+/*    background-color: #f0f2f6; */
+    border-bottom: 1px solid #f0f2f6;
+    border-left: 1px solid #f0f2f6;
+    border-radius: 0px 0px 0px 10px; /* top-left, top-right, bottom-right, bottom-left */
+    padding-left: 8px ;
+    padding-bottom: 5px ;
+}
