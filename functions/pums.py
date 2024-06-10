@@ -36,7 +36,7 @@ def download_pums_data(state, year, acs_type):
     state_files = [file for file in files if state.lower() in file.lower()]
 
     # Create a directory to store downloaded files
-    new_dir = f'data/pums_{acs_type}/PUMS_{year}_{state}_{acs_type}'
+    new_dir = f'../data/pums_{acs_type}/PUMS_{year}_{state}_{acs_type}'
     os.makedirs(new_dir, exist_ok=True)
 
     # Download files
@@ -117,3 +117,13 @@ def est_moe_sdr(df, data_level, confidence_level=0.90):
 
 
 
+
+
+#%% Example usage
+state = 'CO' 
+year = 2022   
+acs_type = '1-Year'  
+
+df = download_pums_data(state, year, acs_type)
+
+# %%
