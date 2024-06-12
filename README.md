@@ -39,7 +39,7 @@ To run this dashboard locally, follow these steps:
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/Ryanwendling17/colorado-housing-dashboard.git
+    git clone https://github.com/rd-wendling/colorado-housing-dashboard.git
     cd colorado-housing-dashboard
     ```
 
