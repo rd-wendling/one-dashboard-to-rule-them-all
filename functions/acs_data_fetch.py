@@ -2,6 +2,7 @@
 import requests
 import pandas as pd
 import datetime
+import streamlit as st
 
 def get_most_recent_acs_year():
     '''
@@ -24,6 +25,7 @@ def get_most_recent_acs_year():
     return current_year
 
 
+@st.cache_data
 def get_acs_data(api_key, variables, level, year, acs_type='acs1'):
     '''
     Fetches ACS data from Census API at given level and year for defined variables and ACS type.

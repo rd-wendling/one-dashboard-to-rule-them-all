@@ -36,9 +36,6 @@ h1 {
 h4 {
     /*    background-color: #f0f2f6; */
         border-bottom: 1px solid #f0f2f6;
-        border-left: 1px solid #f0f2f6;
-        border-radius: 0px 0px 0px 10px; /* top-left, top-right, bottom-right, bottom-left */
-        padding-left: 8px ;
         padding-bottom: 8px ;
     }
 
@@ -46,8 +43,5 @@ h4 {
 h5 {
 /*    background-color: #f0f2f6; */
     border-bottom: 1px solid #f0f2f6;
-    border-left: 1px solid #f0f2f6;
-    border-radius: 0px 0px 0px 10px; /* top-left, top-right, bottom-right, bottom-left */
-    padding-left: 8px ;
     padding-bottom: 5px ;
 }
