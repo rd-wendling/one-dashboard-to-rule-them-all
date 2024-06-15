@@ -21,7 +21,7 @@ with open('assets/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Add Sidebar Filters
-dropdown_views = ['Housing Statistics']
+dropdown_views = ['Housing Statistics', 'Macroeconomic Statistics']
 view_selection = st.sidebar.selectbox("#### View Selection", dropdown_views)
 
 # Display the page title
