@@ -6,15 +6,14 @@ import pandas as pd
 import streamlit as st
 
 @st.cache_data
-def get_time_series(symbol, api_key, output_size):
+def get_time_series(symbol, api_key, start_date, end_date):
 
-    base_url = f"https://www.alphavantage.co/query"
+    base_url = f"https://api.polygon.io/v2/aggs/ticker/{symbol}/range/1/day/{start_date}/{end_date}"
 
     params = {
-        "function": "TIME_SERIES_DAILY",
-        "symbol": symbol,
+        "sort": "asc",
+        "adjusted": "true",
         "apikey": api_key,
-        "outputsize": output_size,
     }
 
     response = requests.get(base_url, params=params)
@@ -22,8 +21,8 @@ def get_time_series(symbol, api_key, output_size):
     if response.status_code == 200:
         try:
             data = response.json()
-            data = data['Time Series (Daily)']
-            df = pd.DataFrame(data)
+            df = pd.DataFrame(data['results'])
+            df['t'] = pd.to_datetime(df['t'], unit='ms')
             return df
         except Exception as e:
             print(f"Error: {e}")

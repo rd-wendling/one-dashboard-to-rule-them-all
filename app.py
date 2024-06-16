@@ -82,10 +82,16 @@ if view_selection == 'Housing Statistics':
 
 
 if view_selection == 'Stock Market':
+    # Add n random s&p 500 stock tickers
     ss.stock_ticker(6)
 
+    # Add ability to refresh page (gets new stock tickers)
     st.sidebar.write('')
     if st.sidebar.button('Refresh Page'):
         st.session_state.clear()
 
+    # Add market index time series section
     ss.market_time_series()
+
+    # Add individual selected stock overview section
+    ss.selected_stock_summary()
