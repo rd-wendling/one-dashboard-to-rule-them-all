@@ -45,3 +45,18 @@ h5 {
     border-bottom: 1px solid #f0f2f6;
     padding-bottom: 5px ;
 }
+
+
+[data-testid="stMetric"] {
+    background: #151515;
+    color: white;
+    border-radius: 5pt;
+    padding: 5pt;
+    margin: 0pt
+}
+
+
+[data-testid="stMetricLabel"] {
+    color: white;
+}
+
