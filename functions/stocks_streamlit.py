@@ -167,3 +167,5 @@ def selected_stock_summary(symbol_df=symbol_df):
     df = sdf.get_time_series(symbol_selection[0], polygon_api_key, start_date, end_date)
     fig = sc.candle_stick_chart(df)
     st.plotly_chart(fig, use_container_width=True)
+
+
