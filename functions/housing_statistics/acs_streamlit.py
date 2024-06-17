@@ -161,23 +161,30 @@ def yoy_comp_line_charts(state_selection):
     
     ## Loop over each year in the year slider and fetch variables we need for the charts at both the state and national level,
     ##  combining into one master df
-    df = pd.DataFrame()
-    for loop_year in range(year_range2[0], year_range2[1]):
-        df1 = cf.get_acs_data(api_key, var_list, f'state:{get_fips_by_state(state_selection)}', loop_year)
+    dfs = []
+    state_fips = get_fips_by_state(state_selection)
+
+    for loop_year in range(year_range2[0], year_range2[1]+1):
+        df1 = cf.get_acs_data(api_key, var_list, f'state:{state_fips}', loop_year)
         df2 = cf.get_acs_data(api_key, var_list, 'us:1', loop_year)
 
-        df3 = pd.concat([df1, df2], ignore_index=True)
-        df3['Year'] = loop_year
-        df = pd.concat([df, df3])
-    df.reset_index(inplace=True)
+        if not df1.empty:
+            df1['Year'] = loop_year
+            df1['NAME'] = state_selection
+            df1 = df1.drop(columns=['state'])
+            df1.reset_index(drop=True, inplace=True)
+            dfs.append(df1)
 
-    # Create a new column based on row level to record that level (state of national level)
-    df['NAME'] = None
-    for row in df.index:
-        if pd.notna(df['state'][row]):
-            df['NAME'][row] = state_selection
-        elif df['us'][row] == 1:
-            df['NAME'][row] = 'US National Average'
+        if not df2.empty:
+            df2['Year'] = loop_year
+            df2['NAME'] = 'US National Average'
+            df2 = df2.drop(columns=['us'])
+            df2.reset_index(drop=True, inplace=True)
+            dfs.append(df2)
+
+    df = pd.concat(dfs, ignore_index=True)
+    df.reset_index(drop=True, inplace=True)
+    
 
     # Melt the df so it works for our plots
     df = pd.melt(df, id_vars=['NAME', 'Year'], var_name='Variable', value_name='Value')
@@ -209,7 +216,7 @@ def yoy_cum_change_line_charts(geolevel, year_range1):
     # Run ACS Data Fetch 
     ## Loop over each year in the year slider and fetch variables we need for the charts at either the state or national level
     df = pd.DataFrame()
-    for loop_year in range(year_range1[0], year_range1[1]):
+    for loop_year in range(year_range1[0], year_range1[1]+1):
         if geolevel == 'US National Average':
             stagedf = cf.get_acs_data(api_key, var_list, 'us:1', loop_year)
             stagedf.rename(columns={'us': 'NAME'}, inplace=True)
