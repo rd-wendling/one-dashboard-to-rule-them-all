@@ -37,6 +37,7 @@ def renter_housing_burden_share_map(df, level_selection, state_selection=None):
     df['Share Renters Housing Burdened'] = df['B25140_011E'] / df['B25140_010E']
     
     if level_selection == 'State Level':
+        # Get full FIPS df merged in
         df['state'] = df['state'].astype(str).str.zfill(2)
         state_fips_df = fips_df[['State', 'StateFIPS']].drop_duplicates()
         df = df.merge(state_fips_df, how='left', left_on=['state'], right_on=['StateFIPS'])
@@ -79,12 +80,13 @@ def renter_housing_burden_share_map(df, level_selection, state_selection=None):
         )
 
     if level_selection == 'County Level':
+         # Get full FIPS df merged in
         df['state'] = df['state'].astype(str).str.zfill(2)
         df['county'] = df['county'].astype(str).str.zfill(3)
         df['MapFIPS'] = df['state'] + df['county']
-
         df = df.merge(fips_df, how='left', on=['MapFIPS'])
 
+         # Filter to selected state if state filter is used
         if state_selection:
             df = df[df['State']==t.get_state_abbr(state_selection)]
 
@@ -104,13 +106,13 @@ def renter_housing_burden_share_map(df, level_selection, state_selection=None):
             hover_data={'County': True, 'Share Renters Housing Burdened': ':.2%'}, 
         )
 
+        # Handle Alaska issue, was not displaying correctly due to projection used so must define the center 
         if state_selection=='Alaska':
             fig.update_geos(
                 center={"lat": 64, "lon": -150},
                 lataxis_range=[50, 73],  
                 lonaxis_range=[-180, -129]
             )
-
         elif state_selection:
             fig.update_geos(
                 visible=False,
@@ -143,17 +145,20 @@ def renter_housing_burden_share_map(df, level_selection, state_selection=None):
 
 # Function for Comp Line Charts YoY 
 def comp_line_chart_yoy(df, location_selection, label, y_format, variable=None, rate_flag=None, numerator=None, denominator=None):
+    # Get full list of variables from the config file, filter out None
     vars = [variable, numerator, denominator]
     vars = list(filter(lambda x: x is not None, vars))
     locs = [location_selection, 'US National Average']
     df = df[df['Variable'].isin(vars) & df['NAME'].isin(locs)].reset_index(drop=True)
     df = df.pivot_table(index=['NAME', 'Year'], values='Value', columns='Variable').reset_index(drop=False)
 
+    # Get Chart Var based on rate_flag input
     if rate_flag == 1:
         df['Chart Var'] = df[numerator] / df[denominator]
     else:
         df['Chart Var'] = df[variable]
 
+    # Keep columns relevant to the chart and plot them
     df = df[['NAME', 'Year', 'Chart Var']]
     fig = px.line(df, x=df.Year, y=df['Chart Var'], color='NAME',
                     labels={'Chart Var': label, 'Year': 'Year'},)
@@ -162,23 +167,13 @@ def comp_line_chart_yoy(df, location_selection, label, y_format, variable=None, 
     fig.update_yaxes(tickformat=y_format)
     fig.update_xaxes(tickformat="d")
 
-    # Set legend position and rename
-    fig.update_layout(legend=dict(title=""))
-
     # Add markers with no fill
     fig.update_traces(mode='markers+lines', marker=dict(color='white', line=dict(width=1.5)))
-
-    # Calculate y-axis range
-    y_min = df['Chart Var'].min()  
-    y_max = df['Chart Var'].max()  
-    y_range = [y_min - (0.05 * y_min), y_max + (0.05 * y_max)]  
-
-    # Set y-axis range
-    #fig.update_yaxes(range=y_range)
 
     # Update layout to adjust margin
     fig.update_layout(yaxis_title=None, xaxis_title=None, margin=dict(t=15, b=0, l=0),
                       legend=dict(
+                        title="",
                         orientation='h',
                         y=1.05,
                         x=0
@@ -191,7 +186,7 @@ def comp_line_chart_yoy(df, location_selection, label, y_format, variable=None, 
 
 # Function for Line Charts YoY Cumulative Change 
 def line_chart_yoy_cum_change(df, vars):
-
+    # Clean up ACS data from api request
     df = df.pivot_table(index=['NAME', 'Year'], values='Value', columns='Variable').reset_index()
     df = df.rename(columns={
                             'B19013_001E': 'Median Household Income', 
@@ -200,41 +195,37 @@ def line_chart_yoy_cum_change(df, vars):
                             })
     min_year = df['Year'].min()
 
+    # Function to calc cumulative change from base year
     def cumulative_change(column):
         return (column - column.iloc[0]) / column.iloc[0]
-
     cumulative_changes = df.groupby('NAME').transform(cumulative_change)
     cumulative_changes.drop(columns='Year', inplace=True)
 
-    # Concatenate the cumulative changes with the original DataFrame
+    # Concatenate the cumulative changes with the original DataFrame and clean up
     df = pd.concat([df['Year'], cumulative_changes], axis=1)
     col_name = f'Cumulative Change since {min_year}'
     df = df.melt(id_vars='Year', var_name='Metric', value_name=col_name)
 
+    # Create the chart fig
     fig = px.line(df, x=df.Year, y=df[col_name], color='Metric',
                     labels={'Chart Var': col_name, 'Year': 'Year'},)
-
-    # Format axes
-    fig.update_yaxes(tickformat='.0%')
-    fig.update_xaxes(tickformat="d")
-
-    # Set legend position and rename
-    fig.update_layout(legend=dict(title=""))
-
-    # Add markers with no fill
-    fig.update_traces(mode='markers+lines', marker=dict(color='white', line=dict(width=1.5)))
 
     # Calculate y-axis range
     y_min = df[col_name].min()  
     y_max = df[col_name].max()  
     y_range = [y_min - (0.025 * (y_max - y_min)), y_max + (0.15 * (y_max - y_min))]  
 
-    # Set y-axis range
-    fig.update_yaxes(range=y_range)
+    # Format axes
+    fig.update_yaxes(tickformat='.0%', range=y_range)
+    fig.update_xaxes(tickformat="d")
+
+    # Add markers with no fill
+    fig.update_traces(mode='markers+lines', marker=dict(color='white', line=dict(width=1.5)))
 
     # Update layout to adjust margin
     fig.update_layout(yaxis_title=None, xaxis_title=None, margin=dict(t=15, b=50, l=0),
                       legend=dict(
+                        title="",
                         orientation='h',
                         y=1.12,
                         x=0

@@ -72,11 +72,8 @@ if view_selection == 'Housing Statistics':
     ## Section title
     tl.write_around_markdown('#### National Average vs. Select State -- Year over Year', 1, 1)
 
-    ## State Selection
-    state_selection = st.selectbox("**Select State**", us_states, index=us_states.index('Colorado'))
-
     ## Display the National Average vs. Select State -- Year over Year figs based on filter selection
-    ast.yoy_comp_line_charts(state_selection)
+    ast.yoy_comp_line_charts(state_selection, us_states)
 
     # Final Section
     ast.housing_terms()

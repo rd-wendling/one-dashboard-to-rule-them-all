@@ -56,7 +56,7 @@ def get_acs_data(api_key, variables, level, year, acs_type='acs1'):
         try:
             data = response.json()
             df = pd.DataFrame(data[1:], columns=data[0]) 
-            df = df.apply(pd.to_numeric, errors='ignore')
+            df = df.apply(pd.to_numeric)
             return df
         except Exception as e:
             print(f"Error: {e}")

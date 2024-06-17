@@ -121,7 +121,7 @@ def renter_house_burden(level_selection, us_states):
             )
 
 # Function to display YoY Comparison Charts Section
-def yoy_comp_line_charts(state_selection, year=year):
+def yoy_comp_line_charts(state_selection, us_states, year=year):
     '''
     Generates the streamlit elements for the National Average vs. Select State -- Year over Year Section
     of the dashboard.
@@ -129,10 +129,16 @@ def yoy_comp_line_charts(state_selection, year=year):
     Parameters:
         - state_selection: User's selection of a state to compare YoY to US National Average of given metric
     '''
-    # Create a year filter as a slider covering the most recent ACS year to 10 years before that
-    year_max = year
-    year_min = year - 10
-    year_range2 = st.slider('**Select Year Range**', min_value=year_min, max_value=year_max, value=(year_min, year_max), key='slider_key_2')
+    # Cols here displays the year slider within the section, without this it spills over a bit horizontally 
+    cols = st.columns([1, 2])
+    with cols[0]:
+         ## State Selection
+        state_selection = st.selectbox("**Select State**", us_states, index=us_states.index('Colorado'))
+    with cols[1]:
+        # Create a year filter as a slider covering the most recent ACS year to 10 years before that
+        year_max = year
+        year_min = year - 10
+        year_range2 = st.slider('**Select Year Range**', min_value=year_min, max_value=year_max, value=(year_min, year_max), key='slider_key_2')
 
     # Read in our setup yaml and get a list of metrics from it for our metric selection dropdowns
     line_chart_setup = ru.read_config('config/yoy_comp_line_chart_setup.yaml')
