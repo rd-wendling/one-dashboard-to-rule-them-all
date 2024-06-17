@@ -15,8 +15,8 @@ one_years_ago = (current_date - timedelta(days=365))
 one_years_ago_plus_one_day = (current_date - timedelta(days=364))
 
 # Get API Keys
-polygon_api_key = os.environ.get('polygon_stock_api_key')
-finnhub_api_key = os.environ.get('finnhub_api_key')
+polygon_api_key = st.secrets['polygon_stock_api_key']
+finnhub_api_key = st.secrets['finnhub_api_key']
 finnhub_client = finnhub.Client(api_key=finnhub_api_key)
 
 # Function to get list of all US Stock symbols
