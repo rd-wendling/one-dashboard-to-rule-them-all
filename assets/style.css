@@ -46,7 +46,7 @@ h5 {
     padding-bottom: 5px ;
 }
 
-.element-container.st-emotion-cache-1m5dihy.e1f1d6gn4 [data-testid="stMetric"] {
+[data-testid="stHorizontalBlock"] [data-testid="stMetric"] {
     background: #151515;
     color: white;
     border-radius: 5pt;
@@ -54,7 +54,7 @@ h5 {
     margin: 0pt
 }
 
-.element-container.st-emotion-cache-1m5dihy.e1f1d6gn4 [data-testid="stMetricLabel"] {
+[data-testid="stHorizontalBlock"] [data-testid="stMetricLabel"] {
     color: white;
 }
 
