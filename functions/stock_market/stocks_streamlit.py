@@ -1,8 +1,8 @@
 #%%
 import streamlit as st
 import random
-import functions.stocks_data_fetch as sdf
-import functions.stocks_charts as sc
+import functions.stock_market.stocks_data_fetch as sdf
+import functions.stock_market.stocks_charts as sc
 import os
 import finnhub
 import pandas as pd
@@ -20,9 +20,13 @@ finnhub_api_key = os.environ.get('finnhub_api_key')
 finnhub_client = finnhub.Client(api_key=finnhub_api_key)
 
 
-# Get list of all US Stock symbols
-symbols = finnhub_client.stock_symbols('US')
-symbol_df = pd.DataFrame(symbols)
+# Function to get list of all US Stock symbols
+st.cache_data(ttl='1d')
+def us_stock_symbols():
+    symbols = finnhub_client.stock_symbols('US')
+    symbol_df = pd.DataFrame(symbols)
+    return symbol_df
+symbol_df = us_stock_symbols()
 
 
 #%%

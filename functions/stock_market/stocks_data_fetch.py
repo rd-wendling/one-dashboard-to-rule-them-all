@@ -1,7 +1,6 @@
 # %%
 import requests
 from bs4 import BeautifulSoup
-import random
 import pandas as pd
 import streamlit as st
 
@@ -37,7 +36,6 @@ def get_time_series(symbol, api_key, start_date, end_date):
         return pd.DataFrame()
 
 
-
 def fetch_stock_quote(finnhub_client, symbol):
     try:
         quote = finnhub_client.quote(symbol)
@@ -54,6 +52,7 @@ def fetch_stock_quote(finnhub_client, symbol):
         return None
 
 
+@st.cache_data(ttl='1d')
 def get_sp500_symbols():
     # Grab Wikipedia article with all the S&P 500 stocks
     url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'

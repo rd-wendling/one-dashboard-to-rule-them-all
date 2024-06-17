@@ -4,6 +4,7 @@ import pandas as pd
 import datetime
 import streamlit as st
 
+@st.cache_data(ttl='1d')
 def get_most_recent_acs_year():
     '''
     Tries calling ACS api until it gets a valid response to find out most recent year available
