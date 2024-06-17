@@ -13,7 +13,7 @@ import concurrent.futures
 acs_vars = ru.read_config('config/acs_vars.yaml')
 
 # Define parameters for api requests
-api_key = st.secrets['census_api_key']
+api_key = st.secrets["census_api_key"]
 year = cf.get_most_recent_acs_year()
 
 # Function to get State FIPS Code from name
