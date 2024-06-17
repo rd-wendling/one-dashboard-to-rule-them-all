@@ -7,6 +7,7 @@ import os
 import rwend_tools.utils as ru
 import streamlit as st
 import us
+import concurrent.futures
 
 # Read in acs vars
 acs_vars = ru.read_config('config/acs_vars.yaml')
@@ -120,7 +121,7 @@ def renter_house_burden(level_selection, us_states):
             )
 
 # Function to display YoY Comparison Charts Section
-def yoy_comp_line_charts(state_selection):
+def yoy_comp_line_charts(state_selection, year=year):
     '''
     Generates the streamlit elements for the National Average vs. Select State -- Year over Year Section
     of the dashboard.
@@ -164,23 +165,26 @@ def yoy_comp_line_charts(state_selection):
     dfs = []
     state_fips = get_fips_by_state(state_selection)
 
-    for loop_year in range(year_range2[0], year_range2[1]+1):
-        df1 = cf.get_acs_data(api_key, var_list, f'state:{state_fips}', loop_year)
-        df2 = cf.get_acs_data(api_key, var_list, 'us:1', loop_year)
-
-        if not df1.empty:
-            df1['Year'] = loop_year
-            df1['NAME'] = state_selection
-            df1 = df1.drop(columns=['state'])
-            df1.reset_index(drop=True, inplace=True)
-            dfs.append(df1)
-
-        if not df2.empty:
-            df2['Year'] = loop_year
-            df2['NAME'] = 'US National Average'
-            df2 = df2.drop(columns=['us'])
-            df2.reset_index(drop=True, inplace=True)
-            dfs.append(df2)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Submit tasks for each year and region
+        futures = []
+        for region in [f'state:{state_fips}', 'us:1']:
+            for year in range(year_range2[0], year_range2[1] + 1):
+                future = executor.submit(cf.get_acs_data, api_key, var_list, region, year)
+                futures.append((future, region, year))
+        for future, region, year in futures:
+            try:
+                result = future.result()
+                if not result.empty:
+                    result['Year'] = year
+                    result['NAME'] = state_selection if region.startswith('state') else 'US National Average'
+                    try:
+                        result = result.drop(columns=['state'])
+                    except:
+                        result = result.drop(columns=['us'])
+                    dfs.append(result)
+            except Exception as e:
+                print(f"An error occurred: {e}")
 
     df = pd.concat(dfs, ignore_index=True)
     df.reset_index(drop=True, inplace=True)
@@ -215,19 +219,28 @@ def yoy_cum_change_line_charts(geolevel, year_range1):
 
     # Run ACS Data Fetch 
     ## Loop over each year in the year slider and fetch variables we need for the charts at either the state or national level
-    df = pd.DataFrame()
-    for loop_year in range(year_range1[0], year_range1[1]+1):
-        if geolevel == 'US National Average':
-            stagedf = cf.get_acs_data(api_key, var_list, 'us:1', loop_year)
-            stagedf.rename(columns={'us': 'NAME'}, inplace=True)
-        else:
-            stagedf = cf.get_acs_data(api_key, var_list, f'state:{get_fips_by_state(geolevel)}', loop_year)
-            stagedf.rename(columns={'state': 'NAME'}, inplace=True)
+    dfs = []
 
-        # Add year to df and combine all years df into one
-        stagedf['Year'] = loop_year
-        df = pd.concat([df, stagedf])
-    df.reset_index(inplace=True, drop=True)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Submit tasks for each year and region (state or US)
+        futures = []
+        for loop_year in range(year_range1[0], year_range1[1] + 1):
+            region = 'us:1' if geolevel == 'US National Average' else f'state:{get_fips_by_state(geolevel)}'
+            future = executor.submit(cf.get_acs_data, api_key, var_list, region, loop_year)
+            futures.append((future, loop_year))
+
+        for future, loop_year in futures:
+            try:
+                stagedf = future.result()
+                if not stagedf.empty:
+                    stagedf['Year'] = loop_year
+                    stagedf.rename(columns={'us': 'NAME', 'state': 'NAME'}, inplace=True)
+                    dfs.append(stagedf)
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+    df = pd.concat(dfs, ignore_index=True)
+    df.reset_index(drop=True, inplace=True)
 
     # Melt the df so it works for our plot
     df = pd.melt(df, id_vars=['NAME', 'Year'], var_name='Variable', value_name='Value')
