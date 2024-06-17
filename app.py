@@ -84,10 +84,6 @@ if view_selection == 'Stock Market':
     # Add n random s&p 500 stock tickers
     ss.stock_ticker(6)
 
-    # Add ability to refresh page (gets new stock tickers)
-    if st.sidebar.button('Refresh Stock Tickers'):
-        st.session_state.clear()
-
     # Add market index time series section
     ss.market_time_series()
 
