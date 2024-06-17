@@ -46,8 +46,9 @@ h5 {
     padding-bottom: 5px ;
 }
 
-[data-testid="stMetricLabel"] {
-    color: black;
+div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown > div[data-testid="stMarkdownContainer"] > p > span.stock-tickers) 
+                    [data-testid="stMetric"] [data-testid="stMetricLabel"] {
+    color: white;
 }
 
 [data-testid="stRadio"] {

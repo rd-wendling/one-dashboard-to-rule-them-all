@@ -94,9 +94,6 @@ def stock_ticker(n):
                         padding: 5pt;
                         margin: 0pt
                     }
-                    [data-testid="stMetric"] [data-testid="stMetricLabel"]{
-                    color: white;
-                    }
                     """,
                 ):
                     st.metric(label=label, value=cp, delta=delta)
