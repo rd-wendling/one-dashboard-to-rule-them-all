@@ -46,6 +46,9 @@ h5 {
     padding-bottom: 5px ;
 }
 
+[data-testid="stMetricLabel"] {
+    color: black;
+}
 
 [data-testid="stRadio"] {
     display: flex;
