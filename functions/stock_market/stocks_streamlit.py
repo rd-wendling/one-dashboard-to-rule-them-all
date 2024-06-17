@@ -94,7 +94,7 @@ def stock_ticker(n):
                         padding: 5pt;
                         margin: 0pt
                     }
-                    [data-testid="stMetricLabel"]{
+                    [data-testid="stMetric"] [data-testid="stMetricLabel"]{
                     color: white;
                     }
                     """,
