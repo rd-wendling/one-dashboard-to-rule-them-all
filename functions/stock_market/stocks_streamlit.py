@@ -7,6 +7,7 @@ import os
 import finnhub
 import pandas as pd
 from datetime import datetime, timedelta
+from streamlit_extras.stylable_container import stylable_container
 
 # Get the date variables we'll need
 current_date = datetime.now()
@@ -83,7 +84,23 @@ def stock_ticker(n):
                 label = f"{stock['symbol']}, ({stock_name})"
 
                 cp, delta, cp_num = stock_ticker_labels(stock)
-                st.metric(label=label, value=cp, delta=delta)
+                with stylable_container(
+                    key='stock-tickers',
+                    css_styles="""
+                    [data-testid="stMetric"]{
+                        background: #151515;
+                        color: white;
+                        border-radius: 5pt;
+                        padding: 5pt;
+                        margin: 0pt
+                    }
+                    [data-testid="stMetricLabel"]{
+                    color: white;
+                    }
+                    """,
+                ):
+                    st.metric(label=label, value=cp, delta=delta)
+                
 
 
 # Create the Market Index Time Series section

@@ -46,17 +46,6 @@ h5 {
     padding-bottom: 5px ;
 }
 
-[data-testid="stHorizontalBlock"] [data-testid="stMetric"] {
-    background: #151515;
-    color: white;
-    border-radius: 5pt;
-    padding: 5pt;
-    margin: 0pt
-}
-
-[data-testid="stHorizontalBlock"] [data-testid="stMetricLabel"] {
-    color: white;
-}
 
 [data-testid="stRadio"] {
     display: flex;
