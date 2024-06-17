@@ -46,8 +46,7 @@ h5 {
     padding-bottom: 5px ;
 }
 
-#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(5),
-#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(7) [data-testid="stMetric"] {
+.element-container .st-emotion-cache-1m5dihy .e1f1d6gn4 [data-testid="stMetric"] {
     background: #151515;
     color: white;
     border-radius: 5pt;
@@ -55,8 +54,7 @@ h5 {
     margin: 0pt
 }
 
-#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(5),
-#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(7)  [data-testid="stMetricLabel"] {
+.element-container .st-emotion-cache-1m5dihy .e1f1d6gn4   [data-testid="stMetricLabel"] {
     color: white;
 }
 
