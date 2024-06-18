@@ -99,4 +99,5 @@ if view_selection == 'News and Research':
 
 # Create 14ers Page
 if view_selection == 'Colorado 14ers':
-    fs.fourteeners()
+    fs.fourteeners_heading()
+    fs.fourteeners_table()
