@@ -9,6 +9,11 @@ Welcome to my Master Dashboard project! This project is a web-based dashboard ap
 ## Published Location
 Access the live published version of my dashboard [here.](https://master-dashboard.streamlit.app/)
 
+## Dashboard Sections
+1. **Stock Market** <br>
+   This section provides market updates and tracking by pulling stock data over the last two years. Users can enter a specific stock in the Select Stock Overview section to see its current price and change since previous close, 52-week high and low, YoY price change in dollars and percent, and a candle stick chart for that stock spanning the last two years. <br><br>
+   The stock apis used in this section can only access data on specific stocks, so market level charts for the DOW and S&P 500 are not possible. Instead I included charts showing the performance of DIA and VOO, which are DOW and S&P 500 tracking index funds respectively. 
+
 ## Local Installation
 To run this dashboard locally, follow these steps:
 
