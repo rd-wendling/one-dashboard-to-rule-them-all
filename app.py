@@ -1,10 +1,10 @@
 #%% Import Dependencies
 import streamlit as st
 st.set_page_config(layout="wide")
-import functions.housing_statistics.acs_charts as fa
 import functions.housing_statistics.acs_streamlit as ast
 import functions.housing_statistics.acs_data_fetch as cf
 import functions.stock_market.stocks_streamlit as ss
+import functions.news.news_streamlit as ns
 import functions.tools as tl
 import us
 
@@ -25,7 +25,7 @@ with open('assets/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Add Sidebar Filters
-dropdown_views = ['Stock Market', 'Housing Statistics']
+dropdown_views = ['Stock Market', 'News and Research', 'Housing Statistics']
 view_selection = st.sidebar.selectbox("#### View Selection", dropdown_views)
 st.sidebar.write('')
 
@@ -89,3 +89,8 @@ if view_selection == 'Stock Market':
 
     # Add individual selected stock overview section
     ss.selected_stock_summary()
+
+
+# Create News and Research Page
+if view_selection == 'News and Research':
+    ns.news_and_research()
