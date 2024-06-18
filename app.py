@@ -6,6 +6,7 @@ import functions.housing_statistics.acs_data_fetch as cf
 import functions.stock_market.stocks_streamlit as ss
 import functions.news.news_streamlit as ns
 import functions.tools as tl
+import functions.fourteeners.fourteeners_streamlit as fs
 import us
 
 # Function to get a list of all US states
@@ -25,7 +26,7 @@ with open('assets/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Add Sidebar Filters
-dropdown_views = ['Stock Market', 'News and Research', 'Housing Statistics']
+dropdown_views = ['Stock Market', 'News and Research', 'Housing Statistics', 'Colorado 14ers']
 view_selection = st.sidebar.selectbox("#### View Selection", dropdown_views)
 st.sidebar.write('')
 
@@ -94,3 +95,9 @@ if view_selection == 'Stock Market':
 # Create News and Research Page
 if view_selection == 'News and Research':
     ns.news_and_research()
+
+
+# Create 14ers Page
+if view_selection == 'Colorado 14ers':
+    fs.fourteeners_heading()
+    fs.fourteeners_table()
