@@ -41,27 +41,24 @@ h4 {
 
 /* H5 background color */
 h5 {
-/*    background-color: #f0f2f6; */
     border-bottom: 1px solid #f0f2f6;
     padding-bottom: 5px ;
 }
 
+/* Black stock ticker labels */
 div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown > div[data-testid="stMarkdownContainer"] > p > span.stock-tickers) 
                     [data-testid="stMetric"] [data-testid="stMetricLabel"] {
     color: white;
 }
 
+/* Treamlit Radio Element */
 [data-testid="stRadio"] {
     display: flex;
     flex-direction: row;
     padding-top: 10pt;
 }
 
-
-#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(12) > div{
-    margin-top: -10pt;
-}
-
+/* Top Headlines category */
 #top-headlines-category{
     display: flex; 
     align-items: center; 
@@ -71,7 +68,101 @@ div[data-testid="stVerticalBlock"]:has(> div.element-container > div.stMarkdown 
     border-radius: 10px;
 }
 
+/* News Article Link */
 a.news-article-link {
     text-decoration: none; /* Removes underline */
     color: inherit; 
+}
+
+/* Weather - Todays Outlook */
+#todays-outlook-container{
+    background-color: #5a7ec5;
+    padding: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    margin-right: 10px ;
+    min-width: 500px;
+    width: 500px;
+    height: 308px;
+}
+
+/* Weather - Astro Outlook */
+#astro-container{
+    background-color: #5a7ec5;
+    padding: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    margin-left: 10px ;
+    min-width: 500px;
+    width: 500px;
+    height: 308px;
+}
+
+/* Outlook and Astro parent div */
+#outlook-astro-parent{
+    width: 80%;
+}
+
+/* Seven day forecast parent div */
+#seven-day-parent{
+    background-color: #5a7ec5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    min-width: 1020px;
+    overflow: hidden;
+    margin-top:15px;
+}
+
+/* Weather Headline 2s */
+#weather-h2{
+    color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+}
+
+/* Col 1s for the outlook astro widgets */
+#outlook-astro-container-col1{
+    margin: 0px;
+    width: 50%
+}
+
+/* Col 2s for the outlook astro widgets */
+#outlook-astro-container-col2{
+    margin: 0px;
+    width: 50%;
+    position: relative;
+}
+
+/* Weather - page parent */
+#weather-page-parent{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
 }
