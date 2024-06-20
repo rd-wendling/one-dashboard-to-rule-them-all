@@ -4,8 +4,19 @@ import pandas as pd
 import streamlit as st
 
 #%%
-@st.cache_data
+@st.cache_data(ttl='6h')
 def astronomy_get(api_key, location, date):
+    '''
+    Takes a weatherapi.com api key, a location, and date returning astronomical data for that location/date.
+
+    Parameters:
+        - api_key
+        - location
+        - date
+
+    Returns:
+        - Astronony df
+    '''
     base_url = f"http://api.weatherapi.com/v1/astronomy.json"
 
     params = {
@@ -30,10 +41,27 @@ def astronomy_get(api_key, location, date):
             return pd.DataFrame()
     else:
         print(f"Error fetching data: {response.status_code}")
+        try:
+            error_message = response.json()['message']
+            print(f"Error message: {error_message}")
+        except Exception as e:
+            print(f"Error processing JSON for error message: {e}")
+        return None
 
 
 #%%
+@st.cache_data(ttl='10m')
 def current_weather_get(api_key, location):
+    '''
+    Takes a weatherapi.com api key and a location returning current weather data for that location.
+
+    Parameters:
+        - api_key
+        - location
+
+    Returns:
+        - Astronony df
+    '''
     base_url = f"http://api.weatherapi.com/v1/current.json"
 
     params = {
@@ -66,10 +94,29 @@ def current_weather_get(api_key, location):
             return empty_df, empty_df, empty_df
     else:
         print(f"Error fetching data: {response.status_code}")
+        try:
+            error_message = response.json()['message']
+            print(f"Error message: {error_message}")
+        except Exception as e:
+            print(f"Error processing JSON for error message: {e}")
+        return None
 
 
 #%%
+@st.cache_data(ttl='10m')
 def forecast_weather_get(api_key, location, days_out):
+    '''
+    Takes a weatherapi.com api key, a location, and days you want the forecast out for,
+    returning forecast weather data for that location and specified days out.
+
+    Parameters:
+        - api_key
+        - location
+        - days_out
+
+    Returns:
+        - forecast df
+    '''
     base_url = f"http://api.weatherapi.com/v1/forecast.json"
 
     params = {
@@ -101,6 +148,12 @@ def forecast_weather_get(api_key, location, days_out):
             return empty_df
     else:
         print(f"Error fetching data: {response.status_code}")
+        try:
+            error_message = response.json()['message']
+            print(f"Error message: {error_message}")
+        except Exception as e:
+            print(f"Error processing JSON for error message: {e}")
+        return None
 
 
 

@@ -1,4 +1,4 @@
-#%%
+#%% Import Dependencies
 import streamlit as st
 import functions.weather.weather_data_fetch as fw
 import functions.weather.weather_streamlit as fs
@@ -9,8 +9,7 @@ import base64
 # Get Weather Data API Key
 weather_api_key = st.secrets["weather_api_key"]
 
-
-def main():
+def weather_main():
     # Get zipcode data
     all_zipcodes = fd.read_zipcodes('data/us_zipcodes/uszips.csv')
 
@@ -21,6 +20,7 @@ def main():
     if not location:
         location = '80501' # hardcoded default
 
+    # Add title
     st.write(f"#### Weather Outlook for {location}")
 
     # Fetch Current Weather data for user's location
@@ -33,7 +33,7 @@ def main():
     # Fetch 7-Day Forecast
     forecast_df = fw.forecast_weather_get(weather_api_key, location, 7)
 
-    # App's Current Weather and Astro Section
+    # Get astro df variables set
     moon_phase = astro_df[astro_df['index']=='moon_phase']['astro'].reset_index(drop=True)
     sunrise = astro_df[astro_df['index']=='sunrise']['astro'].reset_index(drop=True)
     sunset = astro_df[astro_df['index']=='sunset']['astro'].reset_index(drop=True)
@@ -41,6 +41,7 @@ def main():
     moonset = astro_df[astro_df['index']=='moonset']['astro'].reset_index(drop=True)
     moon_illum = astro_df[astro_df['index']=='moon_illumination']['astro'].reset_index(drop=True)
 
+    # Grab path to the moon icon we need
     img_path = fw.get_moon_icon_path(moon_phase[0])
 
     # Read the image file as bytes
@@ -50,9 +51,10 @@ def main():
     # Encode the image bytes as base64
     img_base64 = base64.b64encode(img_bytes).decode()
 
+    # Grab the condition icon img path
     condition_img_path = f"https:{condition_df['icon'][0]}"
 
-
+    # Loop ober the forecast df to get the HTML we need for each forecast column
     html_list = []
     for i in range(0, 7):
         html = f"""<div id="forecast-col">
@@ -69,6 +71,8 @@ def main():
         html_list.append(html)
 
 
+    # Build the entire weather page with custom HTML, helps given all the formatting we're doing to have more
+    # specific control
     st.html(
         f"""
             <div id="weather-page-parent">

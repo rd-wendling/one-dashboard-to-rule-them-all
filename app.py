@@ -105,4 +105,4 @@ elif view_selection == 'Colorado 14ers':
 
 # Create Weather Page
 elif view_selection == 'Weather':
-    ws.main()
+    ws.weather_main()
