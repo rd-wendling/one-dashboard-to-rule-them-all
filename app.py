@@ -17,9 +17,8 @@ def us_states_list():
 us_states = us_states_list()
 
 # Get Most Recently Available ACS Year
-year = cf.get_most_recent_acs_year()
-year_max = year
-year_min = year - 10
+year_max = cf.get_most_recent_acs_year()
+year_min = year_max - 10
 
 # Read in Style.css
 with open('assets/style.css') as f:
@@ -81,7 +80,7 @@ if view_selection == 'Housing Statistics':
 
 
 # Create Stock Market Page
-if view_selection == 'Stock Market':
+elif view_selection == 'Stock Market':
     # Add n random s&p 500 stock tickers
     ss.stock_ticker(6)
 
@@ -93,11 +92,11 @@ if view_selection == 'Stock Market':
 
 
 # Create News and Research Page
-if view_selection == 'News and Research':
+elif view_selection == 'News and Research':
     ns.news_and_research()
 
 
 # Create 14ers Page
-if view_selection == 'Colorado 14ers':
+elif view_selection == 'Colorado 14ers':
     fs.fourteeners_heading()
     fs.fourteeners_table()

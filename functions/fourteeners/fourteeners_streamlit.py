@@ -119,12 +119,13 @@ def fourteeners_table():
     df['peak_forecast_name'] = df['name'].str.replace(' ', '-')
 
     # Get mountain weather forecast for each peak in the df
-    forecast_df = pd.DataFrame()
-    for idx, row in df.iterrows():
-        meter_height = row['MF Height']
-        peak = row['peak_forecast_name']
-        data = fd.get_mountain_forecast(peak, meter_height)
-        forecast_df = pd.concat([forecast_df, pd.DataFrame(data)])
+    with st.spinner("Fetching forecast data for each peak..."):
+        forecast_df = pd.DataFrame()
+        for idx, row in df.iterrows():
+            meter_height = row['MF Height']
+            peak = row['peak_forecast_name']
+            data = fd.get_mountain_forecast(peak, meter_height)
+            forecast_df = pd.concat([forecast_df, pd.DataFrame(data)])
 
     # Clean up the returned forecast df
     padding_len = len(str(forecast_df.index.max()))

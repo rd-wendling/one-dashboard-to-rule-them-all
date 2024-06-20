@@ -67,7 +67,7 @@ def news_and_research():
         # Create two columns to show each keyword filter side by side
         subcol1, subcol2 = st.columns(2)
         with subcol1:
-            title_keyword = st.text_input("**Publication Title Keyword Search:**")
+            title_keyword = st.text_input("**Title Keyword Search:**")
         with subcol2:
             author_keyword = st.text_input("**Author Keyword Search:**")
 
