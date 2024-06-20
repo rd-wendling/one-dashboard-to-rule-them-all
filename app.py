@@ -7,6 +7,7 @@ import functions.stock_market.stocks_streamlit as ss
 import functions.news.news_streamlit as ns
 import functions.tools as tl
 import functions.fourteeners.fourteeners_streamlit as fs
+import functions.weather.weather_streamlit as ws
 import us
 
 # Function to get a list of all US states
@@ -25,7 +26,7 @@ with open('assets/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Add Sidebar Filters
-dropdown_views = ['Stock Market', 'News and Research', 'Housing Statistics', 'Colorado 14ers']
+dropdown_views = ['Weather', 'Stock Market', 'News and Research', 'Housing Statistics', 'Colorado 14ers']
 view_selection = st.sidebar.selectbox("#### View Selection", dropdown_views)
 st.sidebar.write('')
 
@@ -100,3 +101,8 @@ elif view_selection == 'News and Research':
 elif view_selection == 'Colorado 14ers':
     fs.fourteeners_heading()
     fs.fourteeners_table()
+
+
+# Create Weather Page
+elif view_selection == 'Weather':
+    ws.main()
