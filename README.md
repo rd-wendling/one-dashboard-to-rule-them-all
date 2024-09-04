@@ -1,6 +1,6 @@
-# Master Dashboard
+# One Dashboard to Rule Them All
 
-Welcome to my Master Dashboard project! This project is a web-based dashboard application built with [Streamlit](https://streamlit.io/), designed to be a one-stop shop for all the things I care about (that happen to have free APIs or be easily web-scraped). While still being actively developed, when complete it will contain things like News, Weather, Stocks, Economic Statistics, and more. 
+Welcome to my dashboard project! This project is a web-based dashboard application built with [Streamlit](https://streamlit.io/), designed to be a one-stop shop for all the things I care about (that happen to have free APIs or be easily web-scraped). While still being actively developed, when complete it will contain things like News, Weather, Stocks, Economic Statistics, and more. 
 
 ## Table of Contents
 - [Published Location](#published-location)
@@ -8,7 +8,7 @@ Welcome to my Master Dashboard project! This project is a web-based dashboard ap
 - [Local Installation](#local-installation)
 
 ## Published Location
-Access the live published version of my dashboard [here.](https://master-dashboard.streamlit.app/)
+Access the live published version of my dashboard [here.](https://one-dashboard-to-rule-them-all.streamlit.app/)
 
 ## Dashboard Sections
 1. **Stock Market** <br>
@@ -33,7 +33,7 @@ To run this dashboard locally, follow these steps:
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/rd-wendling/master-dashboard.git
+    git clone https://github.com/rd-wendling/one-dashboard-to-rule-them-all.git
     cd master-dashboard
     ```
 
