@@ -85,7 +85,7 @@ def renter_house_burden(level_selection, us_states):
         # Run ACS Data Fetch
         level = 'county:*'
         acs_type = 'acs5'
-        df = cf.get_acs_data(api_key, vars, level, year, acs_type)
+        df = cf.get_acs_data(api_key, vars, level, 2022, acs_type)
 
         # Display an optional State Filter to view the County Level data on a state-by-state basis
         state_selection = st.selectbox("**Optional State Filter**", us_states, index=None)
