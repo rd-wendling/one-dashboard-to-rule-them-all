@@ -86,7 +86,7 @@ def get_sp500_symbols():
         soup = BeautifulSoup(response.content, 'html.parser')
 
         # Find the table containing the S&P 500 symbols
-        table = soup.find('table', {'class': 'wikitable sortable'})
+        table = soup.find('table', {'class': 'wikitable sortable sticky-header jquery-tablesorter'})
 
         # Extract symbols from the table
         symbols = []
